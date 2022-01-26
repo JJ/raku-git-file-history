@@ -1,6 +1,6 @@
 {
-  "name": "Your::Module::Name::Here",
-  "description": "Raku distribution template",
+  "name": "Git::File::History",
+  "description": "Work with the history of a file in a repository",
   "version": "0.0.1",
   "perl": "6.d",
   "meta-version": 1,
@@ -11,13 +11,17 @@
     "Test",
     "Test::META"
   ],
-  "provides": {},
+  "provides": {
+    "Git::File::History": "lib/Git/File/History.rakumod"
+  },
   "resources": [
     ".resources_files_go_here"
   ],
   "license": "Artistic-2.0",
   "tags": [
-    "modules","template","test"
+    "modules",
+    "template",
+    "test"
   ],
   "source-url": ""
 }
