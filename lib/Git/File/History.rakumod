@@ -1,5 +1,6 @@
 unit class Git::File::History;
 
+has $!reflog;
 has @!commits;
 
 method new( $directory = ".") {
@@ -10,4 +11,9 @@ method new( $directory = ".") {
             fail("Changing to $directory did not work; $!")
         }
     }
+    my @reflog = run "git", "reflog";
+    if $*CWD ne $cwd {
+        chdir $cwd;
+    }
+    self.bless( :@reflog );
 }
