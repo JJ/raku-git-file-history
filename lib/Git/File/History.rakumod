@@ -11,9 +11,13 @@ method new( $directory = ".") {
             fail("Changing to $directory did not work; $!")
         }
     }
-    my @reflog = run "git", "reflog";
+    my @reflog = (run "git", "reflog", :out).out.lines;
+    my @commits;
+    for @reflog.map: *.substr(0,7) -> $commit {
+        @commits.push: run "git", "show", $commit, :out;
+    }
     if $*CWD ne $cwd {
         chdir $cwd;
     }
-    self.bless( :@reflog );
+    self.bless( :@reflog, :@commits );
 }
