@@ -14,9 +14,12 @@ method new( $directory = ".") {
     my @reflog = (run "git", "reflog", :out).out.lines;
     my @commits;
     for @reflog.map: *.substr(0,7) -> $commit {
-        my $output = (run "git", "show", $commit, :out).out.lines.join("\n");
-        @commits.push: $output;
+        my @output = (run "git", "show", "--name-only", "--format=%ci",
+                $commit, :out).out.lines;
+
+        @commits.push: { date => @output[0], files => @output[2..*]};
     }
+    say(@commits);
     if $*CWD ne $cwd {
         chdir $cwd;
     }
