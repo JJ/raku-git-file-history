@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "perl": "6.d",
   "meta-version": 1,
-  "authors": [],
+  "authors": [ "J. J. Merelo"],
   "auth": "",
   "depends": [],
   "test-depends": [
