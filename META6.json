@@ -5,23 +5,19 @@
   "perl": "6.d",
   "meta-version": 1,
   "authors": [ "J. J. Merelo"],
-  "auth": "",
-  "depends": [],
+  "auth": "zef:jjmerelo",
   "test-depends": [
     "Test",
     "Test::META"
   ],
   "provides": {
     "Git::File::History": "lib/Git/File/History.rakumod"
-  },
-  "resources": [
-    ".resources_files_go_here"
-  ],
+  }, ,
   "license": "Artistic-2.0",
   "tags": [
-    "modules",
-    "template",
-    "test"
+    "git",
+    "repository",
+    "git-mining"
   ],
-  "source-url": ""
+  "source-url": "https://github.com/JJ/raku-git-file-history"
 }
