@@ -6,7 +6,9 @@ unit class Git::File::History;
 
 has $!reflog;
 has @!commits;
-has %!files;
+has %!file-history;
+
+submethod BUILD( :$!reflog, :@!commits, :%!file-history) {};
 
 method new( $directory = ".") {
     my $cwd = $*CWD;
@@ -15,7 +17,7 @@ method new( $directory = ".") {
         CATCH {
             fail("Changing to $directory did not work; $!")
         }
-    }
+    };
     my @reflog = run-git( "reflog" ).lines;
     my @commits;
     my %file-history;
@@ -32,7 +34,7 @@ method new( $directory = ".") {
                     date => @output[0],
                     state => $file-in-commit
                 };
-                if %file-history{$file} {
+                if ( %file-history{$file} ) {
                     %file-history{$file}.push: $snapshot;
                 } else {
                     %file-history{$file} = [$snapshot];
@@ -45,4 +47,8 @@ method new( $directory = ".") {
         chdir $cwd;
     }
     self.bless( :@reflog, :@commits, :%file-history );
+}
+
+method history-of( Str $file where %!file-history{*}.defined ) {
+    return %!file-history{$file};
 }
