@@ -41,7 +41,6 @@ method new( $directory = ".") {
         }
         @commits.push: { date => @output[0], files => @output[2..*]};
     }
-    say(%file-history);
     if $*CWD ne $cwd {
         chdir $cwd;
     }
