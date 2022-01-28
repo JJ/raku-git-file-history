@@ -25,6 +25,9 @@ for $file-histories.history-of( "t/01-basic.t") -> $fv {
 
 # Repo in another directory:
 my $file-histories' = Git::File::History.new( "another/dir" );
+
+# Limit to a few files (for bit repos)
+my $yet-another = Git::File::History.new( :files("t/*.t") );
 ```
 
 ## See also
