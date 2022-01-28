@@ -20,24 +20,30 @@ method new( $directory = ".") {
     my @commits;
     my %file-history;
     for @reflog.map: *.substr(0,7) -> $commit {
-        my @output = run-git( "show", "--name-only", "--format=%ci", $commit).lines;
-        for @output[2..*] -> $file {
-            my $file-in-commit = run-git( "show", "$commit:$file");
-            my $snapshot = {
-                date=> @output[0],
-                state=> $file-in-commit
-            };
-            if %file-history{$file} {
-                %file-history{$file}.push: $snapshot;
-            } else {
-                %file-history{$file} = [ $snapshot ];
+        my @output = run-git( "show", "--name-status", "--format=%ci", $commit)
+                .lines;
+        for @output[2..*] -> $file-status {
+            my ($status,$file) = $file-status.split(/\s+/);
+            if ( $status ne "D") {
+                my $file-in-commit = run-git(
+                        "show",
+                        "$commit:$file").slurp(:close);
+                my $snapshot = {
+                    date => @output[0],
+                    state => $file-in-commit
+                };
+                if %file-history{$file} {
+                    %file-history{$file}.push: $snapshot;
+                } else {
+                    %file-history{$file} = [$snapshot];
+                }
             }
         }
         @commits.push: { date => @output[0], files => @output[2..*]};
     }
-    say(@commits);
+    say(%file-history);
     if $*CWD ne $cwd {
         chdir $cwd;
     }
-    self.bless( :@reflog, :@commits );
+    self.bless( :@reflog, :@commits, :%file-history );
 }
