@@ -1,23 +1,34 @@
-# Raku Distribution Template
+# Git::File::History
 
-Template for Raku modules, classes, roles, to be distributed as a
-single package in the ecosystem. Fill this README with your
-instructions.
+Get all versions of a file in a git repository. Main use case for this is 
+when you use the repository for storage, and want to examine the progression 
+of some files. Or whatever. I don't really know, it was an itch I had to 
+scratch and here we are.
 
 ## Installing
 
+Usual way:
 
-<-- Fill your prerequisites here, how to install using zef, how to
-install from source -->
+    zef install Git::File::History
 
-## Running
+## SYNOPSIS
 
-<-- Some examples, or pointing to a directory with them -->
+```raku
+use Git::File::History;
+
+my $file-histories = Git::File::History.new();
+say $file-histories.history-of( "README.md");
+
+# Repo in another directory:
+my $file-histories' = Git::File::History.new( "another/dir" );
+```
 
 ## See also
 
-<-- Related stuff -->
+Other [git-related stuff](https://raku.land/?q=git) in Raku land
 
 ## License
-<-- 
-This module will be licensed, by default, under the Artistic 2.0 License (the same as Raku itself). You can change it by using a different LICENSE file, as well as changing the license field in META6.json -->
+
+(c) JJ Merelo, jj@raku.org
+
+This module will be licensed under the Artistic 2.0 License (the same as Raku itself).
