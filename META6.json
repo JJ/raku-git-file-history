@@ -12,7 +12,7 @@
   ],
   "provides": {
     "Git::File::History": "lib/Git/File/History.rakumod"
-  }, ,
+  },
   "license": "Artistic-2.0",
   "tags": [
     "git",
