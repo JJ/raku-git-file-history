@@ -10,7 +10,7 @@ has %!file-history;
 
 submethod BUILD( :$!reflog, :@!commits, :%!file-history) {};
 
-method new( $directory = ".") {
+method new( $directory = ".", :$glob ) {
     my $cwd = $*CWD;
     try {
         chdir($directory);
@@ -18,7 +18,12 @@ method new( $directory = ".") {
             fail("Changing to $directory did not work")
         }
     };
-    my @reflog = run-git( "reflog" ).lines;
+    my @reflog;
+    if $glob {
+        @reflog = run-git("reflog", $glob ).lines;
+    } else {
+        @reflog = run-git("reflog").lines;
+    }
     my @commits;
     my %file-history;
     for @reflog.map: *.substr(0,7) -> $commit {
