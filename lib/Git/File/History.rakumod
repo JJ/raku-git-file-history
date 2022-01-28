@@ -15,7 +15,7 @@ method new( $directory = ".") {
     try {
         chdir($directory);
         CATCH {
-            fail("Changing to $directory did not work; $!")
+            fail("Changing to $directory did not work")
         }
     };
     my @reflog = run-git( "reflog" ).lines;

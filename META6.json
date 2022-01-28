@@ -19,5 +19,5 @@
     "repository",
     "git-mining"
   ],
-  "source-url": "https://github.com/JJ/raku-git-file-history"
+  "source-url": "https://github.com/JJ/raku-git-file-history.git"
 }
