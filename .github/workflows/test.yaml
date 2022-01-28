@@ -1,4 +1,4 @@
-name: "Test in a Raku container - template"
+name: "Test-install and cache deps"
 on: [ push, pull_request ]
 jobs:
   test:
