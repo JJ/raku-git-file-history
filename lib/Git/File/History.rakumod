@@ -4,7 +4,6 @@ sub run-git( $command, *@args ) {
 
 unit class Git::File::History;
 
-has $!reflog;
 has @!commits;
 has %!file-history;
 
@@ -51,7 +50,7 @@ method new( $directory = ".", :$glob ) {
     if $*CWD ne $cwd {
         chdir $cwd;
     }
-    self.bless( :@reflog, :@commits, :%file-history );
+    self.bless( :@commits, :%file-history );
 }
 
 method history-of( Str $file where %!file-history{*}.defined ) {
