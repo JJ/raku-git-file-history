@@ -17,7 +17,6 @@ isa-ok( $with-files, Git::File::History, "Object with files created" );
 my @file-history = $with-files.history-of( "t/01-basic.t");
 ok( @file-history, "Contains history of known files");
 
-say @file-history;
 cmp-ok(@file-history.elems, ">=", 2,
             "This file has been changed more than 3 times");
 is(@file-history[0]<date> cmp @file-history[1]<date>,
