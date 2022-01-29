@@ -7,7 +7,7 @@ unit class Git::File::History;
 has @!commits;
 has %!file-history;
 
-submethod BUILD( :$!reflog, :@!commits, :%!file-history) {};
+submethod BUILD( :@!commits, :%!file-history) {};
 
 method new( $directory = ".", :$glob ) {
     my $cwd = $*CWD;
