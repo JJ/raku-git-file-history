@@ -16,7 +16,7 @@ my $with-files = Git::File::History.new( :files("t/*.t"));
 isa-ok( $with-files, Git::File::History, "Object with files created" );
 my @file-history = $with-files.history-of( "t/01-basic.t");
 ok( @file-history, "Contains history of known files");
-say @file-history;
+say qx<git rev-list --full-history --all>;
 
 if (qx<git rev-list --full-history --all | wc>).split(/\s+/)[1].Int > 1 {
     cmp-ok(@file-history.elems, ">=", 2,
