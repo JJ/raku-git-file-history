@@ -12,17 +12,17 @@ isa-ok( $good, Git::File::History, "Object created" );
 
 ok( $good.history-of( "README.md"), "Contains history of known files");
 
-my $with-files = Git::File::History.new( :files("t/*.t"));
+run( "git", "clone", "https://github.com/JJ/raku-git-file-history");
+my $with-files = Git::File::History.new( "raku-git-file-history",
+        :files("t/*.t"));
 isa-ok( $with-files, Git::File::History, "Object with files created" );
 my @file-history = $with-files.history-of( "t/01-basic.t");
 ok( @file-history, "Contains history of known files");
-say qx<git rev-list --full-history --all>;
 
-if (qx<git rev-list --full-history --all | wc>).split(/\s+/)[1].Int > 1 {
-    cmp-ok(@file-history.elems, ">=", 2,
+cmp-ok(@file-history.elems, ">=", 2,
             "This file has been changed more than 3 times");
-    is(@file-history[0]<date> cmp @file-history[1]<date>,
+is(@file-history[0]<date> cmp @file-history[1]<date>,
             Less, "Correct chronological order");
-}
+run( "rm", "-rf", "raku-git-file-history");
 
 done-testing;
