@@ -17,6 +17,7 @@ isa-ok( $with-files, Git::File::History, "Object with files created" );
 my @file-history = $with-files.history-of( "t/01-basic.t");
 ok( @file-history, "Contains history of known files");
 
+say qx<git rev-list --full-history --all | wc>;
 if (qx<git rev-list --full-history --all | wc>).split(/\s+/)[1].Int > 1 {
     cmp-ok(@file-history.elems, ">", 3,
             "This file has been changed more than 3 times");
