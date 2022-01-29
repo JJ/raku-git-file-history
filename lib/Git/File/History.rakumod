@@ -25,6 +25,7 @@ method new( $directory = ".", :$glob ) {
     }
     my @commits;
     my %file-history;
+    say "reflog ", @reflog;
     for @reflog.map: *.substr(0,7) -> $commit {
         say "Checking out $commit";
         my @output = run-git( "show", "--name-status", "--format=%cI", $commit)
