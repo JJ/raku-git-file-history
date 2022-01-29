@@ -26,6 +26,7 @@ method new( $directory = ".", :$glob ) {
     my @commits;
     my %file-history;
     for @reflog.map: *.substr(0,7) -> $commit {
+        say "Checking out $commit";
         my @output = run-git( "show", "--name-status", "--format=%cI", $commit)
                 .lines;
         say "Output ", @output;
@@ -46,6 +47,7 @@ method new( $directory = ".", :$glob ) {
                 }
             }
         }
+        say %file-history;
         @commits.push: {
             date => DateTime.new(@output[0]),
             files => @output[2..*]
