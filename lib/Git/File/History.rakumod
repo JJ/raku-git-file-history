@@ -26,7 +26,7 @@ method new( $directory = ".", :$glob ) {
     my @commits;
     my %file-history;
     for @reflog.map: *.substr(0,7) -> $commit {
-        my @output = run-git( "show", "--name-status", "--format=%ci", $commit)
+        my @output = run-git( "show", "--name-status", "--format=%cI", $commit)
                 .lines;
         for @output[2..*] -> $file-status {
             my ($status,$file) = $file-status.split(/\s+/);
@@ -45,7 +45,10 @@ method new( $directory = ".", :$glob ) {
                 }
             }
         }
-        @commits.push: { date => @output[0], files => @output[2..*]};
+        @commits.push: {
+            date => DateTime.new(@output[0]),
+            files => @output[2..*]
+        };
     }
     if $*CWD ne $cwd {
         chdir $cwd;
@@ -54,5 +57,5 @@ method new( $directory = ".", :$glob ) {
 }
 
 method history-of( Str $file where %!file-history{*}.defined ) {
-    return %!file-history{$file};
+    return %!file-history{$file}.reverse;
 }

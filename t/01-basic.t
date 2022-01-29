@@ -14,6 +14,10 @@ ok( $good.history-of( "README.md"), "Contains history of known files");
 
 my $with-files = Git::File::History.new( :files("t/*.t"));
 isa-ok( $with-files, Git::File::History, "Object with files created" );
-ok( $with-files.history-of( "t/01-basic.t"), "Contains history of known files");
+my @file-history = $with-files.history-of( "t/01-basic.t");
+ok( @file-history, "Contains history of known files");
+cmp-ok( @file-history.elems, ">", 3,
+        "This file has been changed more than 3 times");
+is( @file-history[0]<date> cmp @file-history[1]<date>, Less, "Correct chronological order" );
 
 done-testing;
