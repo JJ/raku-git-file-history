@@ -19,6 +19,7 @@ ok( @file-history, "Contains history of known files");
 
 say qx<git rev-list --full-history --all | wc>;
 if (qx<git rev-list --full-history --all | wc>).split(/\s+/)[1].Int > 1 {
+    say @file-history;
     cmp-ok(@file-history.elems, ">", 3,
             "This file has been changed more than 3 times");
     is(@file-history[0]<date> cmp @file-history[1]<date>,
