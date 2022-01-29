@@ -19,9 +19,9 @@ method new( $directory = ".", :$glob ) {
     };
     my @reflog;
     if $glob {
-        @reflog = run-git("reflog", $glob ).lines;
+        @reflog = run-git("log", "--all", "--oneline", $glob ).lines;
     } else {
-        @reflog = run-git("reflog").lines;
+        @reflog = run-git("log", "--all", "--oneline").lines;
     }
     my @commits;
     my %file-history;
