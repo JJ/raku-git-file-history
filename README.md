@@ -19,6 +19,7 @@ use Git::File::History;
 my $file-histories = Git::File::History.new();
 say $file-histories.history-of( "README.md");
 
+# .date contains a DateTime object, .state the contents of the file
 for $file-histories.history-of( "t/01-basic.t") -> $fv {
    say $fv.date, " → ", $fv.state.split("\n").elems;
 }
@@ -26,7 +27,7 @@ for $file-histories.history-of( "t/01-basic.t") -> $fv {
 # Repo in another directory:
 my $file-histories' = Git::File::History.new( "another/dir" );
 
-# Limit to a few files (for bit repos)
+# Limit to a few files (for big repos)
 my $yet-another = Git::File::History.new( :files("t/*.t") );
 ```
 
