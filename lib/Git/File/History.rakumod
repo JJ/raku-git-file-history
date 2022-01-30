@@ -28,10 +28,11 @@ method new( $directory = ".", :$glob ) {
     for @reflog.map: *.substr(0,7) -> $commit {
         my @output = run-git( "show", "--name-status", "--format=%cI", $commit)
                 .lines;
-        say @output;
         for @output[2..*] -> $file-status {
+            say "File status $file-status";
             my ($status,$file) = $file-status.split(/\s+/);
             if ( $status ne "D") {
+                say "Commit $commit status $status";
                 my $file-in-commit = run-git(
                         "show",
                         "$commit:$file").slurp(:close);
