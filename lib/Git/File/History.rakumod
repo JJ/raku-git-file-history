@@ -29,10 +29,8 @@ method new( $directory = ".", :$glob ) {
         my @output = run-git( "show", "--name-status", "--format=%cI", $commit)
                 .lines;
         for @output[2..*] -> $file-status {
-            say "File status $file-status";
             my ($status,$file) = $file-status.split(/\s+/);
             if ( $status ne "D") {
-                say "Commit $commit status $status";
                 my $file-in-commit = run-git(
                         "show",
                         "$commit:$file").slurp(:close);
