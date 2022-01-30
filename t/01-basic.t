@@ -26,5 +26,5 @@ my $test-file = Git::File::History.new( :files("resources/test"));
 isa-ok( $test-file, Git::File::History,
         "Object with single test file created" );
 
-is( $test-file.history-of("resources/test").elems, 3, "Only known changes");
+is( $test-file.history-of("resources/test").elems, 9, "Only known changes");
 done-testing;
