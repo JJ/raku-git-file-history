@@ -22,5 +22,9 @@ cmp-ok(@file-history.elems, ">=", 2,
 is(@file-history[0]<date> cmp @file-history[1]<date>,
             Less, "Correct chronological order");
 
+my $test-file = Git::File::History.new( :files("resources/test"));
+isa-ok( $with-files, Git::File::History,
+        "Object with single test file created" );
+
 
 done-testing;
