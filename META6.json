@@ -10,6 +10,7 @@
     "Test",
     "Test::META"
   ],
+  "resources": ["test"],
   "provides": {
     "Git::File::History": "lib/Git/File/History.rakumod"
   },
