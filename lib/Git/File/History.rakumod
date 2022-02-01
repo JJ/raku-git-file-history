@@ -2,6 +2,11 @@ sub run-git( $command, *@args ) {
     return (run "git", $command, |@args, :out).out;
 }
 
+sub this-a-repo() {
+    return so
+    (run "git", "status", :out, :err).err.slurp(:close) !~~ /fatal/;
+}
+
 unit class Git::File::History;
 
 has @!commits;
@@ -17,6 +22,11 @@ method new( $directory = ".", :$glob ) {
             fail("Changing to $directory did not work")
         }
     };
+
+     if !this-a-repo() {
+        chdir($cwd);
+        fail("$directory is not a repo");
+    }
     my @reflog;
     if $glob {
         @reflog = run-git("log", "--all", "--oneline", $glob ).lines;

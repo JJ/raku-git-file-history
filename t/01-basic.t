@@ -6,6 +6,10 @@ throws-like { my $broken = Git::File::History.new( "foo" ) }, X::AdHoc,
         message => /Changing/, "Only correct directories";
 
 my $current-dir = $*CWD;
+throws-like { Git::File::History.new("/tmp") },
+        X::AdHoc,
+        "Bails out outside a repo";
+
 my $good = Git::File::History.new();
 is( $current-dir, $*CWD, "Didn't change the directory");
 isa-ok( $good, Git::File::History, "Object created" );
