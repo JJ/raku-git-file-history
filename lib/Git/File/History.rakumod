@@ -2,7 +2,7 @@ sub run-git( $command, *@args ) {
     return (run "git", $command, |@args, :out).out;
 }
 
-sub this-a-repo() {
+sub this-a-repo() is export {
     return so
     (run "git", "status", :out, :err).err.slurp(:close) !~~ /fatal/;
 }
