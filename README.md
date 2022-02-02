@@ -16,7 +16,7 @@ Usual way:
 ```raku
 use Git::File::History;
 
-my $file-histories = Git::File::History.new();
+my $file-histories = Git::File::History.new(); # Will throw if not in a repo
 say $file-histories.history-of( "README.md");
 
 # .date contains a DateTime object, .state the contents of the file
