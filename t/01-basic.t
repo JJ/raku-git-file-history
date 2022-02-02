@@ -10,7 +10,10 @@ throws-like { Git::File::History.new("/tmp") },
         X::AdHoc,
         "Bails out outside a repo";
 
-done-testing unless this-a-repo();
+unless ( this-a-repo ) {
+    done-testing;
+    exit;
+}
 
 my $good = Git::File::History.new();
 is( $current-dir, $*CWD, "Didn't change the directory");
