@@ -1,7 +1,7 @@
 {
   "name": "Git::File::History",
   "description": "Work with the history of a file in a repository",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "perl": "6.d",
   "meta-version": 1,
   "authors": [ "J. J. Merelo"],
