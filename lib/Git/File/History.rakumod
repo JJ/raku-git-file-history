@@ -1,10 +1,12 @@
 sub run-git( $command, *@args ) {
+    say $command, @args;
+    my $result = run "git", $command, |@args, :out;
     my $output;
     try {
-        $output = (run "git", $command, |@args, :out).out;
-    };
-    if $! {
-        $output = (run "git", $command, |@args, :out, :bin).out;
+        $output = $result.out
+    }
+    if ($!) {
+        say "Error $!";
     }
     return $output;
 }
@@ -48,12 +50,18 @@ method new( $directory = ".", :$glob ) {
         for @output[2..*] -> $file-status {
             my ($status,$file) = $file-status.split(/\s+/);
             if ( $status ne "D") {
-                my $file-in-commit = run-git(
+                my $file-in-commit-result = run-git(
                         "show",
-                        "$commit:$file").slurp(:close);
+                        "$commit:$file");
+                my $file-in-commit;
+                if $file-in-commit-result.opened {
+                    $file-in-commit = $file-in-commit-result.slurp: :close;
+                } else {
+                    $file-in-commit = $file-in-commit-result;
+                }
                 my $snapshot = {
                     date => @output[0],
-                    state => $file-in-commit
+                    state => $file-in-commit;
                 };
                 if ( %file-history{$file} ) {
                     %file-history{$file}.push: $snapshot;
