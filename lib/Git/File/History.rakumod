@@ -1,5 +1,12 @@
 sub run-git( $command, *@args ) {
-    return (run "git", $command, |@args, :out).out;
+    my $output;
+    try {
+        $output = (run "git", $command, |@args, :out).out;
+    };
+    if $! {
+        $output = (run "git", $command, |@args, :out, :bin).out;
+    }
+    return $output;
 }
 
 sub this-a-repo() is export {
