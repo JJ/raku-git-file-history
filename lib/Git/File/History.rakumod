@@ -1,14 +1,9 @@
 sub run-git( $command, *@args ) {
-    say $command, @args;
+    if @args.grep: /".jpg"|".png"/ {
+        return "Binary file";
+    }
     my $result = run "git", $command, |@args, :out;
-    my $output;
-    try {
-        $output = $result.out
-    }
-    if ($!) {
-        say "Error $!";
-    }
-    return $output;
+    return $result.out;
 }
 
 sub this-a-repo() is export {
@@ -54,7 +49,7 @@ method new( $directory = ".", :$glob ) {
                         "show",
                         "$commit:$file");
                 my $file-in-commit;
-                if $file-in-commit-result.opened {
+                if $file-in-commit-result !~~ Str {
                     $file-in-commit = $file-in-commit-result.slurp: :close;
                 } else {
                     $file-in-commit = $file-in-commit-result;
