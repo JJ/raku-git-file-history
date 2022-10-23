@@ -1,7 +1,7 @@
 {
   "name": "Git::File::History",
   "description": "Work with the history of a file in a repository",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "perl": "6.d",
   "meta-version": 1,
   "authors": [ "J. J. Merelo"],
@@ -10,7 +10,7 @@
     "Test",
     "Test::META"
   ],
-  "resources": ["test"],
+  "resources": ["test","logo.png"],
   "provides": {
     "Git::File::History": "lib/Git/File/History.rakumod"
   },
