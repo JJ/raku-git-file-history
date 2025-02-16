@@ -1,8 +1,8 @@
 # Git::File::History [![Test-install and cache deps](https://github.com/JJ/raku-git-file-history/actions/workflows/test.yaml/badge.svg)](https://github.com/JJ/raku-git-file-history/actions/workflows/test.yaml) ![Logo](resources/logo.png)
 
-Get all versions of a file in a git repository. Main use case for this is 
-when you use the repository for storage, and want to examine the progression 
-of some files. Or whatever. I don't really know, it was an itch I had to 
+Get all versions of a file in a git repository. Main use case for this is
+when you use the repository for storage, and want to examine the progression
+of some files. Or whatever. I don't really know, it was an itch I had to
 scratch and here we are.
 
 ## Installing
@@ -37,6 +37,6 @@ Other [git-related stuff](https://raku.land/?q=git) in Raku land
 
 ## License
 
-(c) JJ Merelo, jj@raku.org
+(c) 2022, 2025, JJ Merelo, jj@raku.org
 
 This module will be licensed under the Artistic 2.0 License (the same as Raku itself).
